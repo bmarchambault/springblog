@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Login Page</title>
+</head>
+<body>
+
+                            <!--HOW TO POSTMAP INFORMATION-->
+    <h3>Please login</h3>
+    <form action="/profile" method="post">
+                      <!--    THE NAME NEEDS TO MATCH IN THE POST MAPPING-->
+        <label for="username">Username:</label>
+        <input type ="text" name="username" id="username">
+
+        <label for="password"></label>
+        <input type ="text" name="password" id="password">
+        <button>Submit</button>
+    </form>
+
+
+
+</body>
+</html>

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Profile</title>
+</head>
+<nav th:replace="partials/partials :: navbar" />
+<body>
+
+
+<h2></h2>
+
+<!--<h1>Hello, <span th:text="${user}"> </span> this is your profile page!</h1>-->
+
+
+<!--REFACTOR AFTER  CREATING THE LOGIN PAGE: -->
+<h1>Hello, <span th:text="${username}"> </span> this is your profile page!</h1>
+
+<h3>Your username is : <span th:text="${username}"></span> </h3>
+<h3>Your password is : <span th:text="${password}"></span> </h3>
+
+<!--TO FOR EACH THROUGH A LIST ARRAY: -->
+<!--for each item inside of the collection-->
+<div th:if = "${isLoggedIn}">
+<ul th:each = "ad : ${ads}">
+    <li th:text="${ad}"></li>
+</ul>
+</div>
+
+
+
+
+</body>
+<nav th:replace="partials/partials :: footer" />
+</html>
