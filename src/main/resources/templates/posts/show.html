@@ -1,10 +1,29 @@
 <!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>$Title$</title>
+    <title>Post Details</title>
 </head>
+<nav th:replace= "partials/navbar :: navbar" />
 <body>
-$END$
+<!--=================WORKS WITH /POST/{ID} GETMAPPING====================-->
+
+<h3><span th:text="${title}"></span></h3>
+<p><span th:text="${body}"></span></p>
+
+<!--=================WORKS WITH /SHOW GETMAPPING====================-->
+
+
+
+
+<!--=================WORKS WITH /SHOW GETMAPPING====================-->
+<h3><span th:text="${postTitle}"></span></h3>
+<p><span th:text="${postBody}"></span></p>
+<!--=================WORKS WITH /SHOW GETMAPPING====================-->
+
+
+
 </body>
+<footer th:replace= "partials/footer :: footer" />
 </html>
