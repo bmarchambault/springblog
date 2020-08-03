@@ -1,10 +1,32 @@
 <!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>$Title$</title>
+    <title>Roll Dice Game </title>
 </head>
+<nav th:replace= "partials/navbar :: navbar" />
 <body>
-$END$
+
+<h2> The rules: </h2>
+<ol>
+    <li> Select a number 1- 6</li>
+    <li> If it matches, you win. </li>
+</ol>
+
+<!--<h4><span th:text="${showGuessMsg}"></span></h4>-->
+<!--<h4><span th:text="${rollMsg}"></span></h4>-->
+<h3><span th:text="${message}"></span></h3>
+
+<ul>
+    <li><a href="/roll-dice/1">1</a></li>
+    <li><a href="/roll-dice/2">2</a></li>
+    <li><a href="/roll-dice/3">3</a></li>
+    <li><a href="/roll-dice/4">4</a></li>
+    <li><a href="/roll-dice/5">5</a></li>
+    <li><a href="/roll-dice/6">6</a></li>
+</ul>
+
 </body>
+<footer th:replace= "partials/footer :: footer" />
 </html>
