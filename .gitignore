@@ -33,4 +33,4 @@ build/
 .vscode/
 
 src/main/resources/application.properties
-/main/resources/console/*
+src/main/resources/console/*
