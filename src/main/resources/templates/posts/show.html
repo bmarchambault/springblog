@@ -1,6 +1,6 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
 <head>
     <meta charset="UTF-8">
     <title>Post Details</title>
@@ -8,15 +8,27 @@
 <nav th:replace= "partials/navbar :: navbar" />
 <body>
 
+<!----------------REFACTORED WITH A USER------------------>
+<h1 th:text="${post.title}"></h1>
+<h3 th:text="${post.body}"></h3>
+<p th:text="${post.author.email}"></p>
+<a th:href="@{'/posts/' + ${post.id} + '/edit'}">Edit Post</a>
+<form th:action="@{'/posts/${post.id}/delete'}" th:method="POST">
+    <button>Delete</button>
+</form>
+
+
+<!----------------REFACTORED WITH A USER------------------>
+
 
 <!----------------INSTRUCTOR SOLUTION BELOW------------------>
 
-<h1 th:text="${post.title}"></h1>
-<h3 th:text="${post.body}"></h3>
-<a th:href="@{'/posts/${post.id}/edit'}">Edit Post</a>
-<form th:action="@{'posts/${post.id}/delete'}" th:method="POST">
-    <button>Delete</button>
-</form>
+<!--<h1 th:text="${post.title}"></h1>-->
+<!--<h3 th:text="${post.body}"></h3>-->
+<!--<a th:href="@{'/posts/${post.id}/edit'}">Edit Post</a>-->
+<!--<form th:action="@{'posts/${post.id}/delete'}" th:method="POST">-->
+<!--    <button>Delete</button>-->
+<!--</form>-->
 
 <!----------------INSTRUCTOR SOLUTION ABOVE--------------------->
 

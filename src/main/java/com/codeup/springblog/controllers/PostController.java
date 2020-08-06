@@ -26,8 +26,6 @@ public class PostController {
         this.userDao = userDao;
     }
 
-
-
 //**********************************************************
 // DEPENDENCY INJECTION.  NEEDED TO ACCESS THE JPA REPOSITORY
 //**********************************************************
@@ -62,80 +60,55 @@ public class PostController {
     @GetMapping ("/posts/{id}")
 //    the curly brace id refers the id in the database
     public String show( @PathVariable long id, Model model) {
-//        this id refers to the id in the getmapping
-//        Post myPost = new Post( "SophiesPost", "Hello World");
        Post pulledPost = postDao.getOne(id);
         model.addAttribute("post", pulledPost);
         return "posts/show";
     }
-//        INSTEAD OF THIS BELOW, DO LIKE ABOVE AND CHANGE HTML TO POST.XYZ
-//        Post myPost = postDao.getOne(id);
-//        model.addAttribute("title", myPost.getTitle());
-//        model.addAttribute("body", myPost.getBody());
-//        model.addAttribute("id", id);
-//        this "id" is referenced by the th value on the html(${id}) and id refers to the @pathVariable
-//        return "posts/show";
-//    }
+
 //----------------------------------------------------------------------
 //    MY SOLUTION TO SHOWING A SINGLE POST:
 //----------------------------------------------------------------------
 
 
-
-
-    @GetMapping ("/posts/create")
-    public String createPost(Model model) {
-        User user = new User("eiffelT", "somewhere@paris.com", "lotastairs");
-
-        model.addAttribute("username", user.getUsername());
-        model.addAttribute("email", user.getEmail());
-        return "this where you create a post";
-    }
 //============================================================================
+//this should give you the form.  need to create a create view:
+    @GetMapping ("/posts/create")
+    @ResponseBody
+    public String createPost() {
+        return "Here is the form to create a post";
+//        return "posts/create";
+    }
 
+
+
+// this should receive the form info and save it then redirect.
     @PostMapping("/posts/create")
     @ResponseBody
-//    NORMALLY THIS METHOD IS NAMED INSERT - REPRESENTS INSERTING THIS INFO INTO A DATABASE.
-    public String getInfoFromPostCreation() {
-        return "this retrieves the information used to create a post";
-    }
+    public String insert(){
+        return "Post has been created!";
 
 
 
 
 
 
-//----------------------------------------------------------------------
-//    MY SOLUTION TO EDITING THE POST to use with the show html:
-//----------------------------------------------------------------------
-//    @PostMapping("/post/save")
-////    don't use path variables, instead grab the value with request param.
-//    public String save(@RequestParam(name="id") long id,  @RequestParam(name="postTitle") String postTitle, @RequestParam(name="postBody") String postBody){
-////the name in request param refer to the name in the html
+//    if you're going to rename your parameter, you need to include the name=""
+//    public String insert(@RequestParam(name="title") String title, @RequestParam String body, Model model) {
 //
-////   post Dao will create a new post that's why i don't need to say new Post()
-//    Post postToSave =  postDao.getOne(id) ;
-//    postToSave.setTitle(postTitle);
-//    postToSave.setBody(postBody);
-//    postDao.save(postToSave);
-////   don't need to add attributes, it should just update.
-////redirect to something that is GetMapped, not the file path.
-//    return"redirect:/index";
-////    even though it says string, we are to return html's or redirects.
-//    }
-//----------------------------------------------------------------------
-//    MY SOLUTION TO EDITING THE POST to use with the show html:
-//----------------------------------------------------------------------
-
-
-
+////        hardcoding the user we manually inserted in the database.
+//        User user = userDao.getOne(1L);
+//        Post post = new Post(title, body, user);
+//        postDao.save(post);
+//
+//        return "redirect:/posts";
+    }
 
 
 //----------------------------------------------------------------------
 //    INSTRUCTOR SOLUTION TO EDITING THE POST to use with the edit html:
 //----------------------------------------------------------------------
 
-@GetMapping("/post/{id}/edit")
+@GetMapping("/posts/{id}/edit")
 public String editForm( @PathVariable long id, Model model) {
     model.addAttribute("post", postDao.getOne(id));
     return "posts/edit";
@@ -152,24 +125,12 @@ public String update(@PathVariable long id,
         postDao.save(postToEdit);
         return "redirect:/posts/" + id;
 }
+
 //with the save method, if the object has an id, it will create a new one. if it doesnt, it will update.
 //----------------------------------------------------------------------
 //    INSTRUCTOR SOLUTION TO EDITING THE POST to use with the edit html:
-//----------------------------------------------------------------------  //
+//----------------------------------------------------------------------
 
-
-//----------------------------------------------------------------------
-//    MY SOLUTION TO DELETING A SINGLE POST:
-//----------------------------------------------------------------------
-    @PostMapping("/post/delete")
-    public String delete(@RequestParam(name="deleteId")long id){
-        postDao.deleteById(id);
-        return "redirect:/index";
-//        THIS REDIRCT SHOULD MATCH WITH THE GETMAPPING YOU WANT TO REDIRECT TO.
-    }
-//----------------------------------------------------------------------
-//    MY SOLUTION TO DELETING A SINGLE POST:
-//----------------------------------------------------------------------
 
     //----------------------------------------------------------------------
 //    INSTRUCTOR SOLUTION TO Deleting THE POST
