@@ -7,20 +7,33 @@
 </head>
 <nav th:replace= "partials/navbar :: navbar" />
 <body>
-<!--=================WORKS WITH /POST/{ID} GETMAPPING====================-->
-
-<h3><span th:text="${title}"></span></h3>
-<p><span th:text="${body}"></span></p>
-
-<!--=================WORKS WITH /SHOW GETMAPPING====================-->
 
 
+<!----------------INSTRUCTOR SOLUTION BELOW------------------>
 
+<h1 th:text="${post.title}"></h1>
+<h3 th:text="${post.body}"></h3>
+<a th:href="@{'/posts/${post.id}/edit'}">Edit Post</a>
+<form th:action="@{'posts/${post.id}/delete'}" th:method="POST">
+    <button>Delete</button>
+</form>
 
-<!--=================WORKS WITH /SHOW GETMAPPING====================-->
-<h3><span th:text="${postTitle}"></span></h3>
-<p><span th:text="${postBody}"></span></p>
-<!--=================WORKS WITH /SHOW GETMAPPING====================-->
+<!----------------INSTRUCTOR SOLUTION ABOVE--------------------->
+
+<!--<h3><span th:text="${post.title}"></span></h3>-->
+<!--<p><span th:text="${post.body}"></span></p>-->
+
+<!--<form action="/post/save"  method="POST">-->
+<!--    <input type="hidden" th:value= "${id}" name="id" id="editPostId">-->
+<!--    <input type="text" th:value="${post.title}" name="postTitle" id="editPostTitle">-->
+<!--    <input type="text" th:value="${post.body}" name="postBody" id="editPostBody">-->
+<!--    <button>Edit Post</button>-->
+<!--</form>-->
+<!--<form action="/post/delete" method="post">-->
+<!--    <input type="hidden" th:value= "${id}" name="deleteId" id="deletePostId">-->
+<!--    <button>Delete</button>-->
+<!--</form>-->
+
 
 
 
