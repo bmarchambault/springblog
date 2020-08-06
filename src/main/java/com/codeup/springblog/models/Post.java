@@ -1,12 +1,42 @@
 package com.codeup.springblog.models;
 
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
+import javax.persistence.*;
+
+@Entity
+@Table(name="posts")
 public class Post {
-    private int id;
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long id;
+
+    @Column(nullable = false, length = 150)
     private String title;
+
+    @Column(columnDefinition = "TEXT NOT NULL")
     private String body;
 
+    @ManyToOne
+    @JoinColumn (name = "user_id")
+    @JsonBackReference
+    private Post parentPost;
 
- public Post (){};
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public Post getParentPost() {
+        return parentPost;
+    }
+
+    public void setParentPost(Post parentPost) {
+        this.parentPost = parentPost;
+    }
+
+    public Post (){};
 
  public Post(String title, String body){
     this.title = title;
@@ -20,7 +50,7 @@ public class Post {
     }
 
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
