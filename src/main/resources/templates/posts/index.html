@@ -13,8 +13,16 @@
 <h2>All Posts</h2>
 <div th:each="post : ${posts}">
     <h1 th:text="${post.title}"></h1>
-    <p th:text="${post.body}"></p>
-</div>
+
+<!--    <p th:text="${post.body}"></p>-->
+
+<!---------------------------------------------------------->
+<!--    still working on below-->
+<!--    <form action="/post/${id}" method="get">-->
+<!--        <input type="hidden" th:value= "${post.getId()}" name="showId" id="showId">-->
+<!--        <button>See Post</button>-->
+<!--    </form>-->
+<!--</div>-->
 
 </body>
 <footer th:replace= "partials/footer :: footer" />
