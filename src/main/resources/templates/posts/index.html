@@ -18,11 +18,15 @@
 
 <!---------------------------------------------------------->
 <!--    still working on below-->
-<!--    <form action="/post/${id}" method="get">-->
-<!--        <input type="hidden" th:value= "${post.getId()}" name="showId" id="showId">-->
+<!--    <form action="/posts/${post.id}" method="get">-->
+    <a th:href ="@{/posts/{id}(id=${post.id})}" th:value= "${post.id}"> See Post</a>
+<!--        <input type="hidden" " name="id" id="id">-->
 <!--        <button>See Post</button>-->
 <!--    </form>-->
-<!--</div>-->
+<!--    OPTIONAL EDIT BUTTON:
+<a class="btn btn-primary" th:href="@{/posts/{id}/edit(id=${post.id})}" role="button">Edit</a>
+-->
+</div>
 
 </body>
 <footer th:replace= "partials/footer :: footer" />
