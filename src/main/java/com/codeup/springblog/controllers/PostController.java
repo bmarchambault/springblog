@@ -34,7 +34,7 @@ public class PostController {
 
 
 //----------------------------------------------------------------------
-//    MY SOLUTION TO SHOWING A SINGLE POST:
+//    MY SOLUTION TO SHOWING ALL POSTS:
 //----------------------------------------------------------------------
 
 //THIS PATH NAME CAN BE WHATEVER I WANT AS LONG AS THE RETURN PATH IS CORRECT
@@ -72,20 +72,26 @@ public class PostController {
 
 //============================================================================
 //this should give you the form.  need to create a create view:
+//    USEING FORM MODEL BINDING.
     @GetMapping ("/posts/create")
-    @ResponseBody
-    public String createPost() {
-        return "Here is the form to create a post";
-//        return "posts/create";
+    public String showCreatePostForm(Model model) {
+        model.addAttribute("post", new Post());
+//        return "Here is the form to create a post";
+        return "posts/create";
     }
 
 
 
-// this should receive the form info and save it then redirect.
+// this should receive the form info  WITH FORM MODEL BINDING and save it then redirect.
     @PostMapping("/posts/create")
-    @ResponseBody
-    public String insert(){
-        return "Post has been created!";
+    public String insertNewPost(@ModelAttribute Post post){
+//        HARD CODE A USER UNTIL SPRING SECURITY.
+//        need to add a user because of the many to many .
+        User user = userDao.getOne(1L);
+        post.setAuthor(user);
+//        save the post.
+        postDao.save(post);
+        return "redirect:/posts";
 
 
 
@@ -113,25 +119,43 @@ public String editForm( @PathVariable long id, Model model) {
     model.addAttribute("post", postDao.getOne(id));
     return "posts/edit";
 }
-
-@PostMapping("/posts/{id}/edit")
-public String update(@PathVariable long id,
-                     @RequestParam(name="title") String title,
-                     @RequestParam(name="body") String body){
-        Post postToEdit = postDao.getOne(id);
-        postToEdit.setTitle(title);
-        postToEdit.setBody(body);
-
-        postDao.save(postToEdit);
-        return "redirect:/posts/" + id;
-}
+//
+//@PostMapping("/posts/{id}/edit")
+//public String update(@PathVariable long id,
+//                     @RequestParam(name="title") String title,
+//                     @RequestParam(name="body") String body){
+//        Post postToEdit = postDao.getOne(id);
+//        postToEdit.setTitle(title);
+//        postToEdit.setBody(body);
+//
+//        postDao.save(postToEdit);
+//        return "redirect:/posts/" + id;
+//}
 
 //with the save method, if the object has an id, it will create a new one. if it doesnt, it will update.
 //----------------------------------------------------------------------
-//    INSTRUCTOR SOLUTION TO EDITING THE POST to use with the edit html:
+//    END EDIT W/O FORM MODEL BINDING
 //----------------------------------------------------------------------
 
 
+//----------------------------------------------------------------------
+//    INSTRUCTOR SOLUTION TO EDITING THE POST to use with the edit html:  FORM MODEL BINDING:
+//----------------------------------------------------------------------
+//GET MAPPING IS THE SAME
+
+    @PostMapping("/posts/{id}/edit")
+    public String editPost(@PathVariable long id,
+                         @ModelAttribute Post post){
+//       STILL HAVE TO HARDCODE THE USER:
+        User user = userDao.getOne(1L);
+        post.setAuthor(user);
+        postDao.save(post);
+        return "redirect:/posts/";
+    }
+
+    //----------------------------------------------------------------------
+//    END EDIT WITH FORM MODEL BINDING:
+//----------------------------------------------------------------------
     //----------------------------------------------------------------------
 //    INSTRUCTOR SOLUTION TO Deleting THE POST
 //----------------------------------------------------------------------  //
