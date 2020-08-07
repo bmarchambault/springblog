@@ -17,6 +17,12 @@
     <ul>
         <li th:each="comment : ${ad.comments}" th:text="${comment.content}"></li>
     </ul>
+
+    <h3>Here are the categories for the ad:</h3>
+    <ul>
+        <li th:each="category : ${ad.categories}" th:text="${category.name}" />
+    </ul>
+
 </div>
 
 

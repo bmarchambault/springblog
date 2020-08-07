@@ -24,7 +24,35 @@ public class Ad {
     @JsonManagedReference
     private List<Comment> comments;
 
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(
+            name = "ads_categories",
+            joinColumns = {@JoinColumn(name="ad_id")},
+            inverseJoinColumns = {@JoinColumn(name="category_id")}
+    )
+    private List<AdCategory> categories;
+
     public Ad() {
+    }
+
+
+    public Ad(String title, String description, List<Comment> comments, List<AdCategory> categories) {
+        this.title = title;
+        this.description = description;
+        this.comments = comments;
+        this.categories = categories;
+    }
+
+    public List<AdCategory> getCategories() {
+        return categories;
+    }
+
+    public void setCategories(List<AdCategory> categories) {
+        this.categories = categories;
+    }
+
+    public Ad(List<AdCategory> categories) {
+        this.categories = categories;
     }
 
     public long getId() {

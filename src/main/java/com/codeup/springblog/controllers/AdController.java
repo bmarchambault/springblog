@@ -39,7 +39,8 @@ public class AdController {
     @GetMapping("/ads/view")
     public String getAdsIndex(Model model) {
         model.addAttribute("ads", adsDao.findAll());
-        return "ads/index";
+//        return "ads/index";
+        return "rel/ads";
     }
 
     @GetMapping("/ads/save")
