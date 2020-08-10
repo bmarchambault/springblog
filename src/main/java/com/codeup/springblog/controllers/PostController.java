@@ -4,6 +4,7 @@ import com.codeup.springblog.models.Post;
 import com.codeup.springblog.models.User;
 import com.codeup.springblog.repositories.PostRepository;
 import com.codeup.springblog.repositories.UserRepository;
+import com.codeup.springblog.services.EmailService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -19,18 +20,26 @@ public class PostController {
 //**********************************************************
     private final PostRepository postDao;
     private final UserRepository userDao;
+    private EmailService emailService;
 
-    public PostController(PostRepository postDao, UserRepository userDao){
+
+    public PostController(PostRepository postDao, UserRepository userDao, EmailService emailService){
 
         this.postDao = postDao;
         this.userDao = userDao;
+        this.emailService = emailService;
     }
 
 //**********************************************************
 // DEPENDENCY INJECTION.  NEEDED TO ACCESS THE JPA REPOSITORY
 //**********************************************************
 
-
+    @GetMapping("/email")
+    @ResponseBody
+    public String sendEmail(){
+        emailService.prepareAndSend(postDao.getOne(1L), "test email", "test message");
+        return "Check your mailtrap inbox";
+    }
 
 
 //----------------------------------------------------------------------
