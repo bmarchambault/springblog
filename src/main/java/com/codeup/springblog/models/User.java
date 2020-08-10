@@ -13,7 +13,7 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @Column(nullable = false, length = 25)
+    @Column(nullable = false, length = 25, unique = true)
     private String username;
 
     @Column(nullable = false, length = 100, unique = true)
@@ -23,8 +23,8 @@ public class User {
     private String password;
 
 
-
-    @OneToMany(mappedBy = "parentPost")
+//represents the posts the user has written
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "author")
     @JsonManagedReference
     private List<Post> posts;
 
@@ -45,6 +45,21 @@ public class User {
     }
 
     public User(String username, String email, String password, List<Post> posts) {
+        this.username = username;
+        this.email = email;
+        this.password = password;
+        this.posts = posts;
+    }
+
+    public User(long id, String username, String email, String password) {
+        this.id = id;
+        this.username = username;
+        this.email = email;
+        this.password = password;
+        this.posts = posts;
+    }
+    public User(long id, String username, String email, String password, List<Post> posts) {
+        this.id = id;
         this.username = username;
         this.email = email;
         this.password = password;

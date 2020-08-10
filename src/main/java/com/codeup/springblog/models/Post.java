@@ -19,21 +19,28 @@ public class Post {
     @Column(columnDefinition = "TEXT NOT NULL")
     private String body;
 
+//    this represents the user object that wrote the posts
     @ManyToOne
-    @JoinColumn (name = "user_id")
+    @JoinColumn (name = "author_id")
     @JsonBackReference
-    private Post parentPost;
+    private User author;
+
+    public Post(String title, String body, User author) {
+        this.title = title;
+        this.body = body;
+        this.author = author;
+    }
 
     public void setId(long id) {
         this.id = id;
     }
 
-    public Post getParentPost() {
-        return parentPost;
+    public User getAuthor() {
+        return author;
     }
 
-    public void setParentPost(Post parentPost) {
-        this.parentPost = parentPost;
+    public void setAuthor(User postAuthor) {
+        this.author = postAuthor;
     }
 
     public Post (){};
