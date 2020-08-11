@@ -19,7 +19,7 @@ public class User {
     @Column(nullable = false, length = 100, unique = true)
     private String email;
 
-    @Column(nullable = false, length = 10)
+    @Column(nullable = false, length = 200)
     private String password;
 
 
@@ -28,15 +28,21 @@ public class User {
     @JsonManagedReference
     private List<Post> posts;
 
-    public List<Post> getPosts() {
-        return posts;
-    }
 
-    public void setPosts(List<Post> posts) {
-        this.posts = posts;
-    }
-
+//=========CONSTRUCTORS===============
     public User (){};
+
+//++++++++++++COPY CONSTRUCTOR NEEDED FOR SPRING SECURITY+++++++++++++++++
+    public User(User copy) {
+        id = copy.id; // This line is SUPER important! Many things won't work if it's absent
+        email = copy.email;
+        username = copy.username;
+        password = copy.password;
+    }
+
+//    The constructor User(User copy) defined in this class is a common pattern in Java called a copy constructor. It is used as an alternative to cloning an object. Instead of using the method clone, we create a new object using the current values of another. This will be used in order to fulfill the contract defined by the interfaces in the security package.
+//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
 
     public User(String username, String email, String password) {
         this.username = username;
@@ -66,6 +72,14 @@ public class User {
         this.posts = posts;
     }
 
+//    ====================GETTERS AND SETTERS=======================
+    public List<Post> getPosts() {
+        return posts;
+    }
+
+    public void setPosts(List<Post> posts) {
+        this.posts = posts;
+    }
     public long getId() {
         return id;
     }

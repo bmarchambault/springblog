@@ -3,7 +3,7 @@ package com.codeup.springblog.controllers;
 import com.codeup.springblog.models.Post;
 import com.codeup.springblog.models.User;
 import com.codeup.springblog.repositories.PostRepository;
-import com.codeup.springblog.repositories.UserRepository;
+import com.codeup.springblog.repositories.UsersRepository;
 import com.codeup.springblog.services.EmailService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,14 +19,14 @@ public class PostController {
 // DEPENDENCY INJECTION.  NEEDED TO ACCESS THE JPA REPOSITORY
 //**********************************************************
     private final PostRepository postDao;
-    private final UserRepository userDao;
+    private final UsersRepository usersDao;
     private EmailService emailService;
 
 
-    public PostController(PostRepository postDao, UserRepository userDao, EmailService emailService){
+    public PostController(PostRepository postDao, UsersRepository usersDao, EmailService emailService){
 
         this.postDao = postDao;
-        this.userDao = userDao;
+        this.usersDao = usersDao;
         this.emailService = emailService;
     }
 
@@ -96,7 +96,7 @@ public class PostController {
     public String insertNewPost(@ModelAttribute Post post){
 //        HARD CODE A USER UNTIL SPRING SECURITY.
 //        need to add a user because of the many to many .
-        User user = userDao.getOne(1L);
+        User user = usersDao.getOne(1L);
         post.setAuthor(user);
 //        save the post.
         postDao.save(post);
@@ -156,7 +156,7 @@ public String editForm( @PathVariable long id, Model model) {
     public String editPost(@PathVariable long id,
                          @ModelAttribute Post post){
 //       STILL HAVE TO HARDCODE THE USER:
-        User user = userDao.getOne(1L);
+        User user = usersDao.getOne(1L);
         post.setAuthor(user);
         postDao.save(post);
         return "redirect:/posts/";
@@ -173,4 +173,5 @@ public String editForm( @PathVariable long id, Model model) {
         postDao.deleteById(id);
         return "redirect:/posts";
     }
+
 }
