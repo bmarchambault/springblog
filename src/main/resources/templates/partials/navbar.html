@@ -1,13 +1,28 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
 <head>
     <meta charset="UTF-8">
     <title>Navbar Partial</title>
 </head>
 <body>
 <nav th:fragment="navbar">
-    <h6>This is your navbar!</h6>
+    <ul>
+        <!-- More links here... -->
+
+        <th:block sec:authorize="!isAuthenticated()">
+            <li>
+                <a th:href="@{/login}">Sign up</a>
+            </li>
+        </th:block>
+        <th:block sec:authorize="isAuthenticated()">
+        <li>
+            <form th:action="@{/logout}" th:method="post">
+                <button class="btn-link btn" style="margin-top: 8px">Logout</button>
+            </form>
+        </li>
+        </th:block>
+    </ul>
 </nav>
 
 </body>

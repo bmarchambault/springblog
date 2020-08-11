@@ -28,15 +28,22 @@ public class User {
     @JsonManagedReference
     private List<Post> posts;
 
-    public List<Post> getPosts() {
-        return posts;
-    }
 
-    public void setPosts(List<Post> posts) {
-        this.posts = posts;
-    }
+
+
+
 
     public User (){};
+
+
+//    creates a clone - including the reference id.  so we can manipulate the copy.  this is required by spring security.
+    public User(User copy) {
+        id = copy.id; // This line is SUPER important! Many things won't work if it's absent
+        email = copy.email;
+        username = copy.username;
+        password = copy.password;
+    }
+
 
     public User(String username, String email, String password) {
         this.username = username;
@@ -63,6 +70,13 @@ public class User {
         this.username = username;
         this.email = email;
         this.password = password;
+        this.posts = posts;
+    }
+    public List<Post> getPosts() {
+        return posts;
+    }
+
+    public void setPosts(List<Post> posts) {
         this.posts = posts;
     }
 
